@@ -1,12 +1,13 @@
-#The verbose output gives a nice display of results of a cat command. In the example given below, we get the details of various indices present in the cluster.
-GET _cat
-GET _cat/indices?v
-GET _cat/master?v=true
-GET _cat/nodes?v
-GET _cat/health?v
+##
+```
+GET _cat    # cat api help
+GET _cat/master?v=true    # Check master node details
+GET _cat/master?format=yaml
+GET _cat/nodes?v    # Check all nodes details
+GET _cat/nodes?format=json
+```
 
-
-##Check clutser status
+# Check clutser status
 ```
 GET /_cat/health?v
 GET /_cluster/health?pretty
@@ -15,40 +16,52 @@ GET _cat/health?format=yaml
 ```
 GET _cluster/stats?human&pretty
 
-GET _cat/master?format=yaml
-GET _cat/nodes?format=json
-
+# Check shards details
 GET _cat/shards/?v
 GET /_cat/shards?h=index,shard,prirep,state,unassigned.reason
 GET /_cat/shards?h=index,shard,prirep,state
-GET _cat/indices?v
-GET /_cat/indices?h=index,store.size
+
+# Indices related CAT apis
+```
+GET /_cat/indices?v   # To see all indices
+GET /_cat/indices?h=index,store.size    # check indices with headers like, index,store.size 
 GET /_cat/indices?.
-GET _cat/indices/po_history_lines_v1?v
-GET /_cat/indices
+GET _cat/indices/history_man?v  # Check details of 'history_man' indice
 GET _cat/indices?v&s=index
 GET _cat/indices?v&s=index&h=index,docs.count
 GET _cat/indices/prediction*
-Check hindden index
-GET /_cat/indices/*.*?v
 GET _cat/indices?v&h=index
+```
 
-List all the repository from linux terminal
+# Check hindden indices
+```
+GET /_cat/indices/*.*?v
+```
+
+# Snapshot and repo related commands
+# List all the repository from linux terminal
 ```
 curl -u username:password -X GET http://10.151.43.8:9200/_snapshot/_all?pretty
 ```
-List all the repository from linux terminal without cred
+# List all the repository from linux terminal without cred
 ```
 curl -X GET http://10.151.43.87:9200/_snapshot/_all?pretty
+GET /_snapshot/_all
+GET /_snapshot/_all?pretty
+GET _snapshot/training-repo/_all?pretty 
 ```
-Delete single repository from linux terminal
+# Delete single repository from linux terminal
 ```
 curl -u username:password -X DELETE http://10.151.43.87:9200/_snapshot/training-repo
-```
 curl -X DELETE http://10.151.43.87:9200/_snapshot/training-repo
+DELETE /_snapshot/training-repo
 ```
-To create a repository use below command.
-Connect to master node and run below command
+# List all snapshots
+```
+GET _cat/snapshots?pretty
+```
+# To create a repository use below command.
+@ Connect to master node and run below command
 ```
 curl -u username:password -X PUT "http://10.151.43.87:9200/_snapshot/training-repo" -H 'Content-Type: application/json' -d'
 {
@@ -60,14 +73,23 @@ curl -u username:password -X PUT "http://10.151.43.87:9200/_snapshot/training-re
   }
 }'
 ```
-To list all the snapshot from particular repo
+
+# To list all the snapshot from particular repo
 ```
 curl -u username:password -X GET http://10.151.43.87:9200/_cat/snapshots/training-repo/?v&pretty
 ```
 curl -X GET http://10.151.43.87:9200/_cat/snapshots/training-repo/?v&pretty
+GET _cat/snapshots/training-repo
+```
+# Check repos
+```
+GET _cat/repositories
 ```
 
+# Check indices allocation
+```
 GET _cat/allocation?v
+```
 POST /_cluster/allocation/explain
 {
   "index": "accounts_v1",
@@ -75,32 +97,22 @@ POST /_cluster/allocation/explain
   "primary": true
 }
 
-DELETE /x*
-
-#DELETE /*, -".kibana", -".security", -".monitoring-*"
-
-GET _snapshot/ghx-corex-es-prd-va-7-17-bt-for-restore/_all?pretty 
-GET /_snapshot/_all
-GET /_snapshot/_all?pretty
-DELETE /_snapshot/ghx-corex-es-prd-va-7-17-bt-new-refresh
-
-GET _cat/snapshots?pretty
-
-GET /_cat/nodes/datahot-i-082eb774d17f24756/stats
-
-GET /_nodes/stats
+# Check pending task
+```
 GET /_cat/pending_tasks?v
-
-GET _cat/repositories
-
+```
+# Node related commands
+```
+GET /_cat/nodes/datahot-i-082eb774d17f24756/stats
+GET /_nodes/stats
 GET /_nodes/10.151.42.208/stats
+```
 
-DELETE /_snapshot/snapshotname
-
-DELETE /g*
-
-GET activityflow_docreports_2023_05_v1/_search
-
+# Check data of docreports
+```
+GET docreports/_search
+```
+# Check data of docreports with filed
 GET activityflow_docreports_2023_05_v1/_search
 {
   "size": 1,
@@ -113,17 +125,19 @@ GET activityflow_docreports_2023_05_v1/_search
   ]
 }
 
+# Close docreports indice
+```
+POST /docreports/_close
+```
+# Open  docreports indice
+```
+POST /docreports/_open
+```
+GET /docreports/_search?size=10
 
-POST /activityflow_docs_2024_09_v9/_open
-
-GET /activityflow_docs_2024_09_v9/_search?size=10
-
+# Get all indices
 GET /*,-.security"
 
-
-GET _cat/snapshots/ghx-corex-es-prd-va-7-17-af-for-refresh1
-
-corex_prd_es_af_all_indices_202503110900
 
 POST /_snapshot/ghx-corex-es-prd-va-7-17-af-for-refresh1/corex_prd_es_af_all_indices_202503110900/_restore
 {
@@ -132,21 +146,10 @@ POST /_snapshot/ghx-corex-es-prd-va-7-17-af-for-refresh1/corex_prd_es_af_all_ind
 
 GET /_snapshot/ghx-corex-es-prd-va-7-17-af-for-refresh1/corex_prd_es_af_all_indices_202503110900/_status
 
-PUT /accounts_v1/_settings
-{
-  "settings": {
-    "number_of_shards": 2
-  }
-}
 
 
-PUT /accounts_v1/_settings
-{
-  "settings": {
-    "number_of_replicas": 1
-  }
-}
-
+# Create accounts_v1 indice with # 2 shard and # 1 replica
+```
 PUT /accounts_v1
 {
   "settings": {
@@ -154,27 +157,28 @@ PUT /accounts_v1
     "number_of_replicas": 1
   }
 }
-
-POST /accounts_v1/_close
-
-GET _cat/shards?v
-
-PUT /accounts_v1
+````
+# Change # of replica setting
+```
+PUT /accounts_v1/_settings
 {
   "settings": {
-    "number_of_shards": 3,
     "number_of_replicas": 1
   }
 }
-Check number of replica
+```
+
+# Check number of replica
 GET _cat/indices?h=i,rep,s&format=json
 
-Delet all indices expect . hidden
+# Delet all indices expect . hidden
+```
 DELETE *,-.*
+```
 
-Check Threads Pool
+# Check Threads Pool
 --------------------------------------
-Shows active, queued, rejected thread counts of all nodes
+# Shows active, queued, rejected thread counts of all nodes
 GET _cat/thread_pool/search?v
 All nodes all operations
 GET _cat/thread_pool/?v
