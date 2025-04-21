@@ -1,10 +1,16 @@
-Check clutser status
+#The verbose output gives a nice display of results of a cat command. In the example given below, we get the details of various indices present in the cluster.
+GET _cat
+GET _cat/indices?v
+GET _cat/master?v=true
+GET _cat/nodes?v
+GET _cat/health?v
+
+
+##Check clutser status
 ```
 GET /_cat/health?v
 GET /_cluster/health?pretty
-```
-Check cluster status in YMAL format
-```
+GET _cat/health?format=json
 GET _cat/health?format=yaml
 ```
 GET _cluster/stats?human&pretty
