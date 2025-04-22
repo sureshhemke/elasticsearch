@@ -14,22 +14,21 @@ GET /_cluster/health?pretty
 GET _cat/health?format=json
 GET _cat/health?format=yaml
 ```
+# Get cluster state details
+```
 GET _cluster/stats?human&pretty
-
+```
 # Check shards details
 GET _cat/shards/?v
-GET /_cat/shards?h=index,shard,prirep,state,unassigned.reason
-GET /_cat/shards?h=index,shard,prirep,state
+GET /_cat/shards?v&h=index,shard,prirep,state,unassigned.reason
 
 # Indices related CAT apis
 ```
 GET /_cat/indices?v   # To see all indices
-GET /_cat/indices?h=index,store.size    # check indices with headers like, index,store.size 
-GET /_cat/indices?.
-GET _cat/indices/history_man?v  # Check details of 'history_man' indice
-GET _cat/indices?v&s=index
-GET _cat/indices?v&s=index&h=index,docs.count
-GET _cat/indices/prediction*
+GET /_cat/indices?v&h=index,store.size    # check indices with headers like, index,store.size 
+GET _cat/indices/history_man?v  # Check indice health status for 'history_man'
+GET _cat/indices?v&s=index&h=index,docs.count    # Check indices with specific header
+GET _cat/indices/lead*    # Check indices start with "lead"
 GET _cat/indices?v&h=index
 ```
 
@@ -37,7 +36,10 @@ GET _cat/indices?v&h=index
 ```
 GET /_cat/indices/*.*?v
 ```
-
+# Check all indices except hidden
+```
+GET /_cat/indices/*,-.*?v
+```
 # Snapshot and repo related commands
 # List all the repository from linux terminal
 ```
@@ -81,27 +83,20 @@ curl -u username:password -X GET http://10.151.43.87:9200/_cat/snapshots/trainin
 curl -X GET http://10.151.43.87:9200/_cat/snapshots/training-repo/?v&pretty
 GET _cat/snapshots/training-repo
 ```
-# Check repos
+# Check all available repos
 ```
 GET _cat/repositories
 ```
 
-# Check indices allocation
+# Check all shards allocation
 ```
 GET _cat/allocation?v
 ```
-POST /_cluster/allocation/explain
-{
-  "index": "accounts_v1",
-  "shard": 2,
-  "primary": true
-}
-
 # Check pending task
 ```
 GET /_cat/pending_tasks?v
 ```
-# Node related commands
+# Node related commands with this commands we can check operation is going on node. like _search etc.
 ```
 GET /_cat/nodes/datahot-i-082eb774d17f24756/stats
 GET /_nodes/stats
