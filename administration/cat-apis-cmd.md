@@ -14,6 +14,16 @@ GET /_cluster/health?pretty
 GET _cat/health?format=json
 GET _cat/health?format=yaml
 ```
+# Check Cluster Health
+```
+GET /_cluster/health?pretty
+```
+**Look for:**
+•	status (should ideally be yellow or green, not red)
+•	number_of_pending_tasks
+•	initializing_shards
+•	unassigned_shards (might show temporarily during restore)
+
 # Get cluster state details
 ```
 GET _cluster/stats?human&pretty
@@ -87,6 +97,21 @@ GET _cat/snapshots/training-repo
 ```
 GET _cat/repositories
 ```
+# Restore single indice from snapshot i.e account
+```
+POST /_snapshot/training-repo/prod_all_indices_202503110900/_restore
+{
+  "indices": "accounts"
+}
+```
+# Restore complete snapshot
+```
+POST /_snapshot/training-repo/prod_all_indices_202503110900/_restore
+```
+# Check snapshot status
+```
+GET /_snapshot/training-repo/prod_all_indices_202503110900/_status
+```
 
 # Check all shards allocation
 ```
@@ -124,26 +149,20 @@ GET activityflow_docreports_2023_05_v1/_search
 ```
 POST /docreports/_close
 ```
-# Open  docreports indice
+# **Open  docreports indice**
 ```
 POST /docreports/_open
 ```
+# **Get only 10 docs from indices**
+````
 GET /docreports/_search?size=10
+```
+# **Get all indices except .security**
+```
+GET /*,-.security
+```
 
-# Get all indices
-GET /*,-.security"
-
-
-POST /_snapshot/ghx-corex-es-prd-va-7-17-af-for-refresh1/corex_prd_es_af_all_indices_202503110900/_restore
-{
-  "indices": "accounts_v1"
-}
-
-GET /_snapshot/ghx-corex-es-prd-va-7-17-af-for-refresh1/corex_prd_es_af_all_indices_202503110900/_status
-
-
-
-# Create accounts_v1 indice with # 2 shard and # 1 replica
+# **Create accounts_v1 indice with # 2 shard and # 1 replica**
 ```
 PUT /accounts_v1
 {
@@ -153,82 +172,106 @@ PUT /accounts_v1
   }
 }
 ````
-# Change # of replica setting
+# **Change # of replica setting**
 ```
 PUT /accounts_v1/_settings
 {
   "settings": {
-    "number_of_replicas": 1
+    "number_of_replicas": 2
   }
 }
 ```
 
-# Check number of replica
+**# Check number of replica configured for all indices**
+```
 GET _cat/indices?h=i,rep,s&format=json
-
-# Delet all indices expect . hidden
+```
+**# Delet all indices expect . hidden**
 ```
 DELETE *,-.*
 ```
 
-# Check Threads Pool
+**# Check Threads Pool**
 --------------------------------------
-# Shows active, queued, rejected thread counts of all nodes
+# **Shows active, queued, rejected thread counts of all nodes**
+```
 GET _cat/thread_pool/search?v
-All nodes all operations
-GET _cat/thread_pool/?v
 GET _cat/thread_pool/search?v&h=node_name,name,active,queue,rejected
-Check thread pool for specific node with all operations:
+```
+# **Check running operations on all nodes all**
+```
+GET _cat/thread_pool/?v
+```
+# **Check thread pool for specific node with all operations:**
+```
 GET _nodes/<node ID or node name>/stats/thread_pool
 GET _nodes/B5EGhGc6Qd2nCo4vkHyPBg/stats/thread_pool
 GET _nodes/_datahot-i-00d7e1bcbcfac92d8/stats/thread_pool
-
-To check all the nodes thread pool operaton
+```
+# To check all the nodes thread pool operaton
+```
 GET _nodes/stats/thread_pool
-Check thread_pool.search.queue_size for all nodes
+```
+# Check **"thread_pool.search.queue_size"** setting of all nodes
+```
 GET _nodes/thread_pool?filter_path=**.thread_pool.search
-Get node info
-GET _nodes/B5EGhGc6Qd2nCo4vkHyPBg/_search
-To check the Node ID, Name , IP and Role
+```
+# Get perticuler node info
+```
+GET _nodes/172.31.121.240/_search
+```
+# To check the Node ID, Name , IP and Role
+```
 GET _cat/nodes?v&h=ip,name,nodeId,nodeRole
 GET _nodes?filter_path=nodes.*.name,nodes.*.host
-Check Running  _search Task/Queries
-shows search-related tasks currently executing (e.g. long queries, scrolls).
+```
+# **Check Running  _search Task/Queries**
+@ shows search-related tasks currently executing (e.g. long queries, scrolls).
+```
 GET _tasks?detailed=true&actions=*search
 GET _tasks?actions=*search
-List all tasks
+```
+# **List all tasks**
+```
 GET _tasks
-Cancel specific task.
+```
+# **Cancel specific task.**
+```
 POST _tasks/<task_id>/_cancel
 POST _tasks/UuqJDVRzSumtUcYBIovhHA:8772126217/_cancel
 Task ID format: <node_id>:<task_number>
-Filter long-running tasks (> 5s):
+```
+# **Filter long-running tasks (> 5s):**
+```
 GET _tasks?detailed=true&actions=*search&group_by=none
+```
 Then filter them manually by running_time_in_nanos.
 
-Check CPU Load of all the nodes:
+# **Check CPU Load of all the nodes:**
+```
 GET _nodes/stats/os
-
-Check snapshot Recovery Progress
-To see how shards are being restored on nodes:
+```
+# **Check snapshot Recovery Progress**
+# ****To see how shards are being restored on nodes:
+```
 GET /_cat/recovery?
 GET /_cat/recovery?v&active_only=true
-active_only=true: Shows only active recovery operations (not completed ones).
+```
+**active_only=true:** Shows only active recovery operations (not completed ones).
+
+# **Check recovery details with specific headers**
+```
 GET /_cat/recovery?v=true&h=index,shard,time,type,stage,files_percent,bytes_percent,repository,snapshot,source_host,target_host&active_only=true
+```
 You can add customs field as you want. Use true or false as per need.
 
-Monitor Snapshot restore Task Status
+# **Monitor Snapshot restore Task Status**
+```
 GET /_tasks?detailed=true&actions=*start_recovery&group_by=none
+```
 
-Check Cluster Health
-GET /_cluster/health?pretty
-Look for:
-•	status (should ideally be yellow or green, not red)
-•	number_of_pending_tasks
-•	initializing_shards
-•	unassigned_shards (might show temporarily during restore)
-
-During restores, Elasticsearch may throttle recoveries to avoid overloading nodes. You can speed it up (if resources allow) with settings like:
+**During restores, Elasticsearch may throttle recoveries to avoid overloading nodes. You can speed it up (if resources allow) with settings like:**
+```
 PUT /_cluster/settings
 {
   "transient": {
@@ -236,21 +279,24 @@ PUT /_cluster/settings
     "cluster.routing.allocation.node_concurrent_recoveries": 10
   }
 }
-
-How to View Current Settings
+```
+# **View Current Settings**
+```
 GET /_cluster/settings?include_defaults=true&pretty
+```
 You can see:
-persistent settings (set explicitly)
+**persistent settings (set explicitly)
 transient settings (temporary)
-defaults (if not overridden)
+defaults (if not overridden)**
 
-Create a backup & restore user
-1.	Create a backup_role with below cluster privileges
-Monitor 
+# **Create a backup & restore user**
+1.	Create a **backup_role** with below cluster privileges
+**Monitor 
 manage_slm 
 cluster:admin/snapshot 
-cluster:admin/repository
-and with below Index privileges
-Indices		Privileges
-monitor 	all
-2.	Create a user backup_user with backup-role.
+cluster:admin/repository**
+
+# and with below Index privileges
+**Indices		Privileges
+monitor 	all**
+2.	Create a user **backup_user** with **backup-role**.  ## User can be created using Kibana 
