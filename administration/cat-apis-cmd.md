@@ -225,7 +225,8 @@ GET _nodes/172.31.121.240/_search
 GET _cat/nodes?v&h=ip,name,nodeId,nodeRole
 GET _nodes?filter_path=nodes.*.name,nodes.*.host
 ```
-# **Check Running  _search Task/Queries**
+
+# Use _tasks API to monitor running task/queries
 @ shows search-related tasks currently executing (e.g. long queries, scrolls).
 ```
 GET _tasks?detailed=true&actions=*search
@@ -235,7 +236,7 @@ GET _tasks?actions=*search
 ```
 GET _tasks
 ```
-# **Cancel specific task.**
+# Cancel Heavy Task/ Queries
 ```
 POST _tasks/<task_id>/_cancel
 POST _tasks/UuqJDVRzSumtUcYBIovhHA:8772126217/_cancel
