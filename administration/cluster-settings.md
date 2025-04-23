@@ -72,3 +72,11 @@ PUT /_cluster/settings
 |indices.recovery.concurrent_streams|	Number of concurrent file streams during recovery. Higher = faster, but heavier.|	5 or more|
 |indices.recovery.concurrent_small_file_streams|	Specifically for small files, improving snapshot restore speed.|	3|
 |indices.recovery.max_concurrent_file_chunks|	Controls how many files are sent at once in recovery. Useful for large indices.|	2 or more|
+
+# Memory and Performance Tuning (General)
+|Setting	|Description	|Example|
+|---------|-------------|-------|
+|thread_pool.search.size|	Number of search threads. Depends on CPU cores.|	2x #cores|
+|thread_pool.write.size|	Write thread pool size. Critical during indexing or bulk restores.|	2x #cores|
+|indices.store.throttle.type|	Throttling type for store IO. Set to none during restores for speed.|	"none"|
+|indices.store.throttle.max_bytes_per_sec|	Limits how fast Elasticsearch writes data to disk. Can increase temporarily.|	"250mb"|
