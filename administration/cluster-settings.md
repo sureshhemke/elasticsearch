@@ -67,6 +67,7 @@ PUT /_cluster/settings
 
 # Snapshot Related Settings
 |Setting	|Description	|Example|
+|---------|-------------|-------|
 |cluster.routing.allocation.allow_rebalance|	Controls when shards can be rebalanced. During restore, you may want to delay rebalancing.|	"indices_all_active"|
 |indices.recovery.concurrent_streams|	Number of concurrent file streams during recovery. Higher = faster, but heavier.|	5 or more|
 |indices.recovery.concurrent_small_file_streams|	Specifically for small files, improving snapshot restore speed.|	3|
