@@ -63,3 +63,11 @@ PUT /_cluster/settings
 |cluster.routing.allocation.node_concurrent_recoveries|	How many shards a node can recover at once (e.g. from another node or snapshot).|	10|
 |cluster.routing.allocation.node_initial_primaries_recoveries|	Controls number of primary shards a node can recover in parallel on startup.|	30|
 |cluster.routing.allocation.enable|	Controls shard allocation. Useful to disable during restores (none) and re-enable after (all).|	"none" / "all"|
+
+
+# Snapshot Related Settings
+|Setting	|Description	|Example|
+|cluster.routing.allocation.allow_rebalance|	Controls when shards can be rebalanced. During restore, you may want to delay rebalancing.|	"indices_all_active"|
+|indices.recovery.concurrent_streams|	Number of concurrent file streams during recovery. Higher = faster, but heavier.|	5 or more|
+|indices.recovery.concurrent_small_file_streams|	Specifically for small files, improving snapshot restore speed.|	3|
+|indices.recovery.max_concurrent_file_chunks|	Controls how many files are sent at once in recovery. Useful for large indices.|	2 or more|
