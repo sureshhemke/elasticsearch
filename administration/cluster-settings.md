@@ -98,3 +98,23 @@ PUT /_cluster/settings
 |Setting	|Default Value	|Recommended Value	|Explanation|
 |---------|---------------|-------------------|-----------|
 |monitor.fs.health.enabled	|true	|true	|Enables periodic filesystem health checks.
+
+# 🧠 JVM and Memory Settings
+|Setting	|Default Value	|Recommended Value	|Explanation|
+|---------|---------------|-------------------|-----------|
+|JVM heap size	|Auto-configured	|50% of available RAM, up to 32GB	|Elasticsearch automatically sets the JVM heap size based on system memory. It's recommended to set it to 50% of available RAM, with a maximum of 32GB, to optimize performance.|
+|-XX:HeapDumpPath	|Default path	|Custom path	|Specifies the path for heap dumps in case of OutOfMemoryError.|
+|-XX:ErrorFile	|Default path	|Custom path	|Specifies the path for JVM fatal error logs.|
+
+# ⚙️ Cluster Stability and Fault Detection
+|Setting	|Default Value	|Recommended Value	|Explanation|
+|---------|---------------|-------------------|-----------|
+|cluster.election.duration	|500ms	500ms	|Maximum time allowed for each election.|
+|cluster.election.initial_timeout	|100ms	100ms	|Initial timeout before attempting the first election.|
+|cluster.election.max_timeout	|10s	10s	|Maximum timeout before retrying an election after a failure.|
+|cluster.fault_detection.follower_check.interval	|1s	|1s	|Interval between follower checks to each node.|
+|cluster.fault_detection.follower_check.timeout	|10s	|10s	|Timeout for follower check responses.|
+|cluster.fault_detection.follower_check.retry_count	|3	|3	|Number of consecutive follower check failures before considering a node faulty.|
+|cluster.fault_detection.leader_check.interval	|1s	|1s	|Interval between leader checks to the elected master.|
+|cluster.fault_detection.leader_check.timeout	|10s	|10s	|Timeout for leader check responses.|
+|cluster.fault_detection.leader_check.retry_count	|3	|3	|Number of consecutive leader check failures before considering the master faulty.|
