@@ -57,8 +57,9 @@ PUT /_cluster/settings
 ```
 
 # Recovery & Restore Related Settings
-Setting	Description	Example
-indices.recovery.max_bytes_per_sec	Controls recovery speed (network/disk usage). Default is 40mb. You can increase to speed up restore.	"100mb"
-cluster.routing.allocation.node_concurrent_recoveries	How many shards a node can recover at once (e.g. from another node or snapshot).	10
-cluster.routing.allocation.node_initial_primaries_recoveries	Controls number of primary shards a node can recover in parallel on startup.	30
-cluster.routing.allocation.enable	Controls shard allocation. Useful to disable during restores (none) and re-enable after (all).	"none" / "all"
+|Setting	|Description	|Example |
+|---------|-------------|--------|
+|indices.recovery.max_bytes_per_sec|	Controls recovery speed (network/disk usage). Default is 40mb. You can increase to speed up restore.|	"100mb"|
+|cluster.routing.allocation.node_concurrent_recoveries|	How many shards a node can recover at once (e.g. from another node or snapshot).|	10|
+|cluster.routing.allocation.node_initial_primaries_recoveries|	Controls number of primary shards a node can recover in parallel on startup.|	30|
+|cluster.routing.allocation.enable|	Controls shard allocation. Useful to disable during restores (none) and re-enable after (all).|	"none" / "all"|
