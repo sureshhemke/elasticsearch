@@ -88,8 +88,13 @@ PUT /_cluster/settings
 |action.auto_create_index|	true	|false	|Determines whether Elasticsearch automatically creates an index when a document is indexed to a non-existent index. It's recommended to set it to false to prevent unexpected index creation.|
 |action.destructive_requires_name|	true	|true	|Ensures that destructive actions (like deleting indices) require explicit index names, preventing accidental deletion of multiple indices.|
 
-# Shard and Index Management
+# 📦Shard and Index Management
 |Setting	|Default Value	|Recommended Value	|Explanation|
 |---------|---------------|-------------------|-----------|
 |cluster.max_shards_per_node	|1000	|Based on hardware and workload	|Limits the total number of primary and replica shards per node. Adjust according to your cluster's capacity.|
 |cluster.max_shards_per_node.frozen	|3000	|Based on hardware and workload	|Limits the total number of frozen primary and replica shards per node.|
+
+# 🧩 Miscellaneous Settings
+|Setting	|Default Value	|Recommended Value	|Explanation|
+|---------|---------------|-------------------|-----------|
+|monitor.fs.health.enabled	|true	|true	|Enables periodic filesystem health checks.
