@@ -1,4 +1,5 @@
 # All cluster related settings
+# Note:: transient = Temporary || persistent = permanent
 
 # View Current cluster Settings
 ```
@@ -80,3 +81,9 @@ PUT /_cluster/settings
 |thread_pool.write.size|	Write thread pool size. Critical during indexing or bulk restores.|	2x #cores|
 |indices.store.throttle.type|	Throttling type for store IO. Set to none during restores for speed.|	"none"|
 |indices.store.throttle.max_bytes_per_sec|	Limits how fast Elasticsearch writes data to disk. Can increase temporarily.|	"250mb"|
+
+# Index and Cluster Operations
+|Setting	|Default Value	|Recommended Value	|Explanation|
+|---------|---------------|-------------------|-----------|
+|action.auto_create_index|	true	|false	|Determines whether Elasticsearch automatically creates an index when a document is indexed to a non-existent index. It's recommended to set it to false to prevent unexpected index creation.|
+|action.destructive_requires_name|	true	|true	|Ensures that destructive actions (like deleting indices) require explicit index names, preventing accidental deletion of multiple indices.|
