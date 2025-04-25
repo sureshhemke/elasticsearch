@@ -38,8 +38,8 @@ GET _cluster/health
 ```
 📌 Wait until:
 ```
-No shards are assigned to es-node-2
-Cluster status is green
+No shards are assigned to datahot6
++ Cluster status is + green
 ```
 # Step 4: Stop and Disable the Elasticsearch service on that node
 ```
