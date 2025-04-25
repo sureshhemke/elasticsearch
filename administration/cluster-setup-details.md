@@ -65,10 +65,10 @@ GET _cat/shards?h=index,shard,prirep,state,node
 
 #	Description
 ✔️	3 shards + 1 replica = 6 total shards
-|-----------------------------------------|
+|                                         |
 ✔️	3 nodes = balanced across all
-|-----------------------------------------|
+|                                         |
 ➕	Add 4th node → Elasticsearch will rebalance automatically
-|-----------------------------------------|
+|                                         |
 
 📊	Rebalancing ensures even load & fault tolerance
