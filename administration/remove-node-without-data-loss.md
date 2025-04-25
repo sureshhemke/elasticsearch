@@ -6,5 +6,5 @@
 ```
 GET _cat/nodes?v
 ```
-> Let’s say the node name is: datahot6 <
+> Let’s say the node name is: datahot6 >
 
