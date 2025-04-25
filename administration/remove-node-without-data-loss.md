@@ -19,6 +19,7 @@ PUT /_cluster/settings
 }
 ```
 🔹 You can also **use _ip**, **_host**, or **_id** instead of **_name**.
+
 ✅ Elasticsearch will now start moving shards away from this node to others.
 
 # Step 3: Wait for shard relocation to complete
