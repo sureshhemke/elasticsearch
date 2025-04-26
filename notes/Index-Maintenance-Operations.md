@@ -1,6 +1,7 @@
 # ✅ 1. Force Merge
 What it does:
 Cleans up and shrinks down the storage used by an index.
+
 🧩 Force Merge in Elasticsearch is very similar to Defragmentation/Compaction in MongoDB
 
 🧩 Runs force merge to combine small segment files into bigger ones, freeing disk space
