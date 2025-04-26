@@ -32,7 +32,7 @@ You might force it before shutting down the cluster.
 ```
 POST /my-index/_flush
 ```
-#✅ 3. Refresh Index
+# ✅ 3. Refresh Index
 What it does:
 Makes newly indexed documents searchable immediately.
 
@@ -46,7 +46,7 @@ Usually Elasticsearch refreshes automatically every second
 ```
 POST /my-index/_refresh
 ```
-#✅ 4. Clear Cache
+# ✅ 4. Clear Cache
 What it does:
 Wipes out cached data (like field data, filters, etc.) to free memory.
 
@@ -60,7 +60,7 @@ After large updates or mapping changes
 ```
 POST /my-index/_cache/clear
 ```
-#📚 Alternate Terms (Depending on Context)
+# 📚 Alternate Terms (Depending on Context)
 
 |Operation	|Ideal Terminology	|Description|
 |-----------|-------------------|-----------|
