@@ -8,7 +8,7 @@ Click the hamburger menu icon in the upper left corner
 Click Machine Learning
 Click Data Visualizer
 Under Import data, click Select file
-Either drag and drop the malicious_urls.csv file, or upload it by using the File menu
+Either drag and drop the **malicious_urls.csv** file, or upload it by using the File menu
 Observe how it's already started analyzing the data
 Click Import
 Configure and Import the malicious_urls Dataset
@@ -20,7 +20,7 @@ In the Index settings box, add a comma after 1 and enter a new line of "number o
   "number_of_shards": 1,
   "number_of_replicas": 0
 }
-For Index name, enter malicious_urls.
+For Index name, enter **malicious_urls**.
 
 Leave Create index pattern checked.
 
@@ -31,3 +31,5 @@ Monitor its progress along the bottom of the screen.
 Once it's complete, click View index in Discover.
 
 You should then see a long list of URLs.
+
+**Refer data folder for .csv files**
