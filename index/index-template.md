@@ -96,3 +96,29 @@ PUT _index_template/audit_template
 - index_patterns: ["shards-*"] → Applies to all indices starting with shards-
 
 - composed_of: ["shards"] → Uses the component template shards
+
+# Crate template with Alias and template priority
+```
+PUT _index_template/shards-template
+{
+  "index_patterns": ["log-*"],
+  "priority": 500,
+  "template": {
+    "settings": {
+      "number_of_shards": 3,
+      "number_of_replicas": 2
+    },
+    "mappings": {
+      "properties": {
+        "timestamp": {
+          "type": "date"
+        }
+      }
+    },
+    "aliases": {
+      "log-alias": {}
+    }
+  }
+}
+```
+
