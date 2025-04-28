@@ -37,3 +37,29 @@ Range | Ranges of values (like numbers, dates, or IP addresses). | {"gte": 10, "
 - Object & Nested: Useful for structured data, like details about a person or multiple related items.
 
 - Range: For storing ranges (like between 10 and 20), useful for filtering or searching within a range of values.
+
+# Explination about the "normalizer": "lowercase_normalizer" keyword field
+
+In Elasticsearch, the "normalizer": "lowercase_normalizer" setting is used to specify that the text data should be processed (or normalized) in a certain way before it’s indexed. Specifically, the "lowercase_normalizer" normalizer converts the text to lowercase.
+- "lowercase_normalizer": This specific normalizer converts all text into lowercase letters. It’s useful when you want to ensure case-insensitivity, meaning "Apple", "apple", and "APPLE" will be treated as the same value.
+Example:
+If you have a keyword field (like an email address, tag, or ID) and you apply "normalizer": "lowercase_normalizer", Elasticsearch will store the value in lowercase, making searches case-insensitive.
+
+```
+{
+  "properties": {
+    "email": {
+      "type": "keyword",
+      "normalizer": "lowercase_normalizer"
+    }
+  }
+}
+```
+For example, with the above mapping, if you index the value "John.Doe@Example.com" into the email field, Elasticsearch will normalize it to "john.doe@example.com". This means queries like "john.doe@example.com", "John.Doe@Example.com", or "JOHN.DOE@EXAMPLE.COM" will all match the same document, treating them as equal.
+
+Why Use It?
+Consistency: It ensures that the data is stored and queried in a consistent way (e.g., case-insensitive).
+
+Searchability: It helps users find values without worrying about case differences.
+
+In short, "normalizer": "lowercase_normalizer" is useful when you want to ensure that keyword data is case-insensitive by converting everything to lowercase before storing it.
