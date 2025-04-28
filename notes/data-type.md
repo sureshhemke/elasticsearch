@@ -1,4 +1,5 @@
-Data Type | What It Stores | Example
+Data Type | What It Stores | Example|
+|---------|----------------|--------|
 Text | Large blocks of text that you want to search through. | "Hello world"
 Keyword | Exact values (like IDs or tags) that are not changed or analyzed. | "user123"
 Integer | Whole numbers (small numbers). | 42
