@@ -38,7 +38,9 @@ Range | Ranges of values (like numbers, dates, or IP addresses). | {"gte": 10, "
 
 - Range: For storing ranges (like between 10 and 20), useful for filtering or searching within a range of values.
 
-# Explination about the "normalizer": "lowercase_normalizer" keyword field
+# Normalizers in Elasticsearch
+Explination about the "normalizer": "lowercase_normalizer" keyword field
+------------------------------------------------------------------------
 
 In Elasticsearch, the "normalizer": "lowercase_normalizer" setting is used to specify that the text data should be processed (or normalized) in a certain way before it’s indexed. Specifically, the "lowercase_normalizer" normalizer converts the text to lowercase.
 - "lowercase_normalizer": This specific normalizer converts all text into lowercase letters. It’s useful when you want to ensure case-insensitivity, meaning "Apple", "apple", and "APPLE" will be treated as the same value.
