@@ -11,4 +11,4 @@ POST /<target>/_bulk
 ```
 
 ## Example:
-- Refer folder - labs/data
+- Refer - data folder
