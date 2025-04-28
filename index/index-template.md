@@ -93,3 +93,6 @@ PUT _index_template/audit_template
 }
 ```
 
+- index_patterns: ["shards-*"] → Applies to all indices starting with shards-
+
+- composed_of: ["shards"] → Uses the component template shards
